@@ -82,7 +82,7 @@ class TareaViewController extends Controller
      */
     public function edit(Tarea $tarea)
     {
-
+        return Inertia::render('Tarea/Edit', ['tipos' => Tipos_tarea::all(), 'categorias' => Categorias_tarea::all(), 'tareas' => Tarea::with('tipo', 'categoria')->find($tarea->id),]);
     }
 
     /**
@@ -94,7 +94,18 @@ class TareaViewController extends Controller
      */
     public function update(Request $request, Tarea $tarea)
     {
-        //
+        $validatedData = $request->validate([
+            'titulo_tarea'      => ['required', 'string', 'max:254'],
+            'descripcion_tarea' => ['required', 'string', 'max:254'],
+            'puntos'            => ['required', 'integer', 'max:11'],
+            'tipo_id'           => ['required', 'exists:tipos_tareas,id'],
+            'categoria_id'      => ['required', 'exists:categorias_tareas,id']
+        ]);
+
+        $tarea->update($validatedData);
+
+
+        return redirect()->route('tareas.index');
     }
 
     /**
@@ -105,6 +116,10 @@ class TareaViewController extends Controller
      */
     public function destroy(Tarea $tarea)
     {
-        //
+        $tarea->delete();
+
+        return redirect()->route('tareas.index');
     }
+
+    // Puesta la ruta como excepción en tareas_laravel_jetstream\app\Http\Middleware\VerifyCsrfToken.php
 }
