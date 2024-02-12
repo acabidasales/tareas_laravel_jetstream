@@ -1,14 +1,8 @@
 <script setup>
 import { defineProps } from 'vue';
+
 defineProps({
     tareas: Object,
-});
-
-$.ajaxSetup({
-    data: {
-        "_token": "{{ csrf_token() }}",
-        "id": id
-    }
 });
 
 </script>
@@ -37,8 +31,7 @@ $.ajaxSetup({
             </div>
             </a>
             <a v-bind:href="'tareas/'+ tarea.id + '/edit'" class="bg-green-600 hover:bg-green-400 text-white font-bold py-2 px-4 rounded absolute bottom-0 w-1/2 left-0 pb-8 text-center">Editar</a>
-            <form method="post" :action="'/tareas/' + tarea.id">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            <form method="post" :action="`/tareas/${tarea.id}`">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="submit" value="Eliminar Tarea" class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 rounded absolute bottom-0 w-1/2 right-0 pb-8 text-center">
             </form>

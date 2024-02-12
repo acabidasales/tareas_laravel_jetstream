@@ -10,6 +10,8 @@
 <!-- 
 composer install --ignore-platform-regs
 npm install
+npm install ajax
+npm install jquery
 npm run dev
 php artisan run
 php artisan migrate
