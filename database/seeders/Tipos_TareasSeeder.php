@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\Tipos_Tareas;
+use App\Models\Tipos_Tarea;
 
 class Tipos_TareasSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class Tipos_TareasSeeder extends Seeder
      */
     public function run()
     {
-        $tipos_tareas = new Tipos_Tareas();
+        $tipos_tareas = new Tipos_Tarea();
         $tipos_tareas->tipo = "Comun";
         $tipos_tareas->descripcion = "Tareas que aparecen de forma comun";
         $tipos_tareas->save();
