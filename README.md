@@ -8,7 +8,7 @@
 </p>
 
 <!-- 
-composer install --ignore-platform-regs
+composer install --ignore-platform-reqs
 npm install
 npm install ajax
 npm install jquery
