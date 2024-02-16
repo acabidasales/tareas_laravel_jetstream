@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tipo');
             $table->unsignedBigInteger('categoria');
             $table->integer('puntos');
+            $table->string('creador', 255);
             $table->timestamps();
 
             $table->foreign('tipo')->references('id')->on('tipos_tareas');

@@ -15,10 +15,15 @@ class TareaViewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         /* dd(Tarea::with('tipo', 'categoria')->get()) */
-        return Inertia::render('Tarea/Index',['tareas' => Tarea::with('tipo', 'categoria')->get()]);
+        $user = $request->user()->name;
+        if ($user == "admin"){
+            return Inertia::render('Tarea/Index',['tareas' => Tarea::with('tipo', 'categoria')->get()]);
+        } else {
+            return Inertia::render('Tarea/Index',['tareas' => Tarea::with('tipo', 'categoria')->where('creador', $user)->get()]);
+        }
     }
 
     /**
@@ -39,7 +44,6 @@ class TareaViewController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $request->user();
         $data = array_merge(
             $request->all(),
             $request->validate([
@@ -56,8 +60,9 @@ class TareaViewController extends Controller
             'descripcion_tarea' => $request->descripcion_tarea,
             'tipo' => $request->tipo_id,
             'categoria' => $request->categoria_id,
-            'puntos' => $request->puntos
-    ]);
+            'puntos' => $request->puntos,
+            'creador' => $request->user()->name
+        ]);
 
         return redirect()->route('tareas.index');
     }
@@ -68,9 +73,14 @@ class TareaViewController extends Controller
      * @param  \App\Models\Tarea  $tarea
      * @return \Illuminate\Http\Response
      */
-    public function show(Tarea $tarea)
+    public function show(Tarea $tarea, Request $request)
     {
-        $tareaConRelaciones = Tarea::with('tipo', 'categoria')->find($tarea->id);
+        $user = $request->user()->name;
+        if ($user == "admin"){
+            $tareaConRelaciones = Tarea::with('tipo', 'categoria')->find($tarea->id);
+        }else {
+            $tareaConRelaciones = Tarea::with('tipo', 'categoria')->where('creador', $user)->find($tarea->id);
+        }
 
         return Inertia::render('Tarea/Show', ['tareas' => $tareaConRelaciones]);
     }
@@ -81,9 +91,15 @@ class TareaViewController extends Controller
      * @param  \App\Models\Tarea  $tarea
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tarea $tarea)
+    public function edit(Tarea $tarea, Request $request)
     {
-        return Inertia::render('Tarea/Edit', ['tipos' => Tipos_tarea::all(), 'categorias' => Categorias_tarea::all(), 'tareas' => Tarea::with('tipo', 'categoria')->find($tarea->id),]);
+        $user = $request->user()->name;
+        if ($user == "admin"){
+            return Inertia::render('Tarea/Edit', ['tipos' => Tipos_tarea::all(), 'categorias' => Categorias_tarea::all(), 'tareas' => Tarea::with('tipo', 'categoria')->find($tarea->id),]);
+        }else {
+            return Inertia::render('Tarea/Edit', ['tipos' => Tipos_tarea::all(), 'categorias' => Categorias_tarea::all(), 'tareas' => Tarea::with('tipo', 'categoria')->where('creador', $user)->find($tarea->id),]);
+        }
+
     }
 
     /**

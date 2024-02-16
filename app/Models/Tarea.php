@@ -13,7 +13,7 @@ class Tarea extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['titulo_tarea','descripcion_tarea','tipo', 'categoria', 'puntos'];
+    protected $fillable = ['titulo_tarea','descripcion_tarea','tipo', 'categoria', 'puntos', 'creador'];
 
     public function tipo()
     {

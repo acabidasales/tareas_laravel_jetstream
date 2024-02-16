@@ -25,6 +25,7 @@ class TareaFactory extends Factory
             'tipo' => $this->faker->randomElement([1, 2, 3]),
             'categoria' => $this->faker->randomElement([1, 2]),
             'puntos' => $this->faker->numberBetween(1, 5),
+            'creador' => $this->faker->sentence,
         ];
     }
 }
