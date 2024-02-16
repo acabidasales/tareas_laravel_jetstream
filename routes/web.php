@@ -17,6 +17,8 @@ use App\Http\Controllers\TareaViewController;
 |
 */
 
+
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -36,4 +38,6 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::resource('/tareas', TareaViewController::class);
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('/tareas', TareaViewController::class); //Proteje todas las rutas dentro de TareaViewController
+});

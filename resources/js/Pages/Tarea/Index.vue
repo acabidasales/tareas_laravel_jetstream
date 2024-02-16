@@ -15,7 +15,7 @@ defineProps({
     <h1 class="text-3xl font-semibold text-white mb-6">Listado de tareas</h1>
 
     <form action="tareas/create">
-        <button class="bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded bottom-0" type="submit">Crear</button>
+        <button class="bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded bottom-0" type="submit">Crear tarea</button>
     </form>
         <br><br>
     <ul class="grid grid-cols-1 md:grid-cols-3  gap-8">
@@ -30,12 +30,11 @@ defineProps({
                 <br><br><br>
             </div>
             </a>
-            <a v-bind:href="'tareas/'+ tarea.id + '/edit'" class="bg-green-600 hover:bg-green-400 text-white font-bold py-2 px-4 rounded absolute bottom-0 w-1/2 left-0 pb-8 text-center">Editar</a>
+            <a v-bind:href="'tareas/'+ tarea.id + '/edit'" class="bg-green-600 hover:bg-green-400 text-white font-bold py-2 px-4 rounded absolute bottom-0 w-full left-0 pb-8 text-center">Editar</a>
             <form method="post" :action="`/tareas/${tarea.id}`">
                 <input type="hidden" name="_method" value="DELETE">
-                <input type="submit" value="Eliminar Tarea" class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 rounded absolute bottom-0 w-1/2 right-0 pb-8 text-center">
+                <input type="submit" value="Completar" class="bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded absolute bottom-0 w-full left-0 pb-0">
             </form>
-            <button class="bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded absolute bottom-0 w-full left-0 pb-0">Completar</button>
         </li>
 
     </ul>

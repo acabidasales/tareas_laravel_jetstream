@@ -39,6 +39,7 @@ class TareaViewController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $request->user();
         $data = array_merge(
             $request->all(),
             $request->validate([
